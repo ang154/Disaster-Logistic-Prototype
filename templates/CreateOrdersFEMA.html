@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Orders</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <style>
+
+    </style>
+  </head>
+  <body style="background-color:#92ccef">
+    <header class="d-flex justify-content-center py-3" style="background-color:#5bbdfa">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/disaster/" class="nav-link">Disaster</a></li>
+        <li class="nav-item"><a href="/orders/" class="nav-link active" aria-current="page">Orders</a></li>
+        <li class="nav-item"><a href="/shipments/" class="nav-link">Shipments</a></li>
+        <li class="nav-item"><a href="/details/" class="nav-link">Details</a></li>
+      </ul>
+    </header>
+    <div class="container">
+    <div class="row justify-content-around">
+    <div class="col-6">
+        <br><br>
+  <h1 style="margin-left: 15px;">Create Order</h1>
+  <form method="POST">
+      {% csrf_token %}
+      <br><br>
+      <label for="d_id" style="margin-left: 25px;">Disaster ID:</label>
+      <input type="text" id="d_id" name="d_id"><br><br>
+
+      <label for="o_status" style="margin-left: 25px;">Status:</label>
+      <input type="text" id="o_status" name="o_status"><br><br>
+      <label for="email" style="margin-left: 25px;">Email(One time notify):</label>
+      <input type="email" id="email" name="email"><br><br>
+
+      <button type="submit" class="btn btn-primary" style="margin-left: 25px;"> Create</button>
+      <br><br>
+    </form>
+   <form action="/orders/" method="get" >
+      <button type="submit" class="btn btn-primary" style="margin-left: 25px;">Back</button>
+      </form>
+      {% if o_id %}
+      <h2>Your order has been created. Order ID: {{ o_id }}.</h2>
+          <h2>Base on the disaster, we suggest the following shipments:</h2>
+          {% if suggest_shipments %}
+              <table style="text-align: center;">
+                  <thead>
+                  <tr>
+                      <th>&nbsp; (Internal) Shipment ID&nbsp; </th>
+                      <th>&nbsp; Vendor ID&nbsp; </th>
+                      <th>&nbsp; State FIPS&nbsp; </th>
+                      <th>&nbsp; County FIPS&nbsp; </th>
+                      <th>&nbsp; Shipment Status&nbsp; </th>
+                      <th>&nbsp; Vehicle Type ID&nbsp; </th>
+                      <th>&nbsp; Current Longitude&nbsp; </th>
+                      <th>&nbsp; Current Latitude&nbsp; </th>
+                      <th>&nbsp; Content ID&nbsp; </th>
+                      <th>&nbsp; Content Quantity&nbsp; </th>
+                      <th>&nbsp; Expiration Date&nbsp; </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for row in res_shipments %}
+                      <tr>
+                          <td>{{ row.0 }}</td>
+                          <td>{{ row.1 }}</td>
+                          <td>{{ row.2 }}</td>
+                          <td>{{ row.3 }}</td>
+                          <td>{{ row.4 }}</td>
+                          <td>{{ row.5 }}</td>
+                          <td>{{ row.6 }}</td>
+                          <td>{{ row.7 }}</td>
+                          <td>{{ row.8 }}</td>
+                          <td>{{ row.9 }}</td>
+                          <td>{{ row.10 }}</td>
+                      </tr>
+                  {% endfor %}
+                  </tbody>
+              </table>
+          {% else %}
+              <p style="text-align: center;">No suggestions available.</p>
+              <style>
+                  table {
+                      display: none;
+                  }
+              </style>
+          {% endif %}
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    <script>
+      // Add JavaScript code here
+    </script>
+  </body>
+</html>

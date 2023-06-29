@@ -1,0 +1,35 @@
+python -m venv venv
+# In cmd.exe
+venv\Scripts\activate.bat
+# In PowerShell
+venv\Scripts\Activate.ps1
+pip install -r pip.txt
+cd New
+python manage.py migrate
+python manage.py runserver
+python manage.py createsuperuser
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': 'jj*z35Z5b46#Dh',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'data': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'prototype',
+        'USER': 'pi',
+        'PASSWORD': '2333',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+mysqldump -u username -p database_name > data-dump.sql
+mysql -u root -p
+CREATE DATABASE new_database;
+exit;
+mysql -u username -p new_database < data-dump.sql

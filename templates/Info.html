@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title >Alerts</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <style>
+
+    </style>
+  </head>
+
+  <body style="background-color:#92ccef">
+    <header class="d-flex justify-content-center py-3" style="background-color:#5bbdfa">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/disaster/" class="nav-link">Disaster</a></li>
+        <li class="nav-item"><a href="/orders/" class="nav-link">Orders</a></li>
+        <li class="nav-item"><a href="/shipments/" class="nav-link">Shipments</a></li>
+        <li class="nav-item"><a href="/details/" class="nav-link active" aria-current="page">Details</a></li>
+      </ul>
+    </header>
+    <div class="container">
+    <div class="row justify-content-around">
+    <div class="col-6">
+        <br><br>
+    <h1 style="margin-left: 15px;">Lookup Destination Status</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <br>
+      <label for="d_id" style="margin-left: 25px;">Disaster ID:</label>
+      <input type="text" id="d_id" name="d_id"><br><br>
+
+      <label for="o_id" style="margin-left: 25px;">Order ID:</label>
+      <input type="text" id="o_id" name="o_id"><br><br>
+
+      <label for="s_id" style="margin-left: 25px;">Shipment ID:</label>
+      <input type="text" id="s_id" name="s_id"><br><br>
+
+      <button type="submit" class="btn btn-primary" style="margin-left: 25px;" > <b>Load</b></button>
+    </form><br>
+
+    <br><br>
+    {% if weather_statement %}
+        <h3>Weather Info: </h3>
+    <p>{{ weather_statement }}</p>
+    {% endif %}
+    </div>
+    <div class="col-5">
+    <br><br>
+    {% if disasters %}
+        <h3>Disaster Info: </h3>
+    <table id="d_table">
+        {% for disaster in disasters %}
+            <tr>
+                <th>(FEMA) Disaster ID</th>
+                <td>{{ disaster.0 }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ disaster.1 }}</td>
+            </tr>
+            <tr>
+                <th>Declaration Type</th>
+                <td>{{ disaster.2 }}</td>
+            </tr>
+            <tr>
+                <th>Disaster Name</th>
+                <td>{{ disaster.3 }}</td>
+            </tr>
+            <tr>
+                <th>Disaster Detail</th>
+                <td>{{ disaster.4 }}</td>
+            </tr>
+            <tr>
+                <th>Disaster Date</th>
+                <td>{{ disaster.5 }}</td>
+            </tr>
+            <tr>
+                <th>State Code</th>
+                <td>{{ disaster.6 }}</td>
+            </tr>
+            <tr>
+                <th>County Code</th>
+                <td>{{ disaster.7 }}</td>
+            </tr>
+            <tr>
+                <th>County Name</th>
+                <td>{{ disaster.8 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <style>
+            #d_table {
+                display: none;
+            }
+        </style>
+    {% endif %}
+
+    {% if orders %}
+        <table id="o_table">
+        {% for order in orders %}
+            <tr>
+                <th>&nbsp; (Internal) Order ID &nbsp;</th>
+                <td>{{ order.0 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Create Date &nbsp;</th>
+                <td>{{ order.1 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Order Status</th>
+                <td>{{ order.2 }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        {% else %}
+            <style>
+                #o_table {
+                    display: none;
+                    }
+            </style>
+        {% endif %}
+
+    {% if shipments %}
+        <table id="s_table">
+        {% for row in shipments %}
+            <tr>
+                <th>&nbsp; (Internal) Shipment ID&nbsp; </th>
+                <td>{{ row.0 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Vendor ID&nbsp; </th>
+                <td>{{ row.1 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; State FIPS&nbsp; </th>
+                <td>{{ row.2 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; County FIPS&nbsp; </th>
+                <td>{{ row.3 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Shipment Status&nbsp; </th>
+                <td>{{ row.4 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Vehicle Type ID&nbsp; </th>
+                <td>{{ row.5 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Current Longitude&nbsp; </th>
+                <td>{{ row.6 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Current Latitude&nbsp; </th>
+                <td>{{ row.7 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Content ID&nbsp; </th>
+                <td>{{ row.8 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Content Quantity&nbsp; </th>
+                <td>{{ row.9 }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp; Expiration Date&nbsp; </th>
+                <td>{{ row.10 }}</td>
+            </tr>
+        {% endfor %}
+          </table>
+        {% else %}
+            <style>
+                #s_table {
+                    display: none;
+                    }
+            </style>
+        {% endif %}
+
+    {% if a_map %}
+        <br><br>
+        <h3>Navigation Links: </h3>
+        <button class="btn btn-primary" style="display: inline-block;" > <a href= '{{ a_map }}' class="nav-link">Apple Map</a></button>
+    {% endif %}
+    {% if g_map %}
+        <button class="btn btn-primary" style="display: inline-block;" > <a href= '{{ g_map }}' class="nav-link">Google Map</a></button>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    <script>
+      // Add JavaScript code here
+    </script>
+  </body>
+</html>
+
+
+

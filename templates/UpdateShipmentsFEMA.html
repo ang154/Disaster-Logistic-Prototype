@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update Shipment</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <style>
+
+    </style>
+  </head>
+  <body style="background-color:#92ccef">
+    <header class="d-flex justify-content-center py-3" style="background-color:#5bbdfa">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/disaster/" class="nav-link">Disaster</a></li>
+        <li class="nav-item"><a href="/orders/" class="nav-link" aria-current="page">Orders</a></li>
+        <li class="nav-item"><a href="/shipments/" class="nav-link active" aria-current="page">Shipments</a></li>
+        <li class="nav-item"><a href="/details/" class="nav-link">Details</a></li>
+      </ul>
+    </header>
+    <div class="container">
+    <div class="row justify-content-around">
+    <div class="col-9">
+        <br><br>
+  <h1 style="margin-left: 15px;">Update Shipments</h1>
+    <form method="POST">
+        {% csrf_token %}
+      <br><br>
+      <label for="s_id" style="margin-left: 25px;">Shipment ID:</label>
+      <input type="text" id="s_id" name="s_id" pattern="[0-9]+"><br><br>
+
+      <label for="vendors" style="margin-left: 25px;">Vendor:</label>
+        <select id="vendors" name="vendors">
+  <option value="">--Update to Vendor--</option>
+  <option value="20001">Ready America, Inc.</option>
+  <option value="20002">Composite Analysis Group, Inc. Lipsey Mountain Spring Water</option>
+  <option value="20003">AmeriQual Group, LLC</option>
+  <option value="20004">Nex-Xos Worldwide</option>
+  <option value="20005">SoPaKco, Inc.</option>
+  <option value="20006">The Wornick Company</option>
+  <option value="20007">AvMedical, LLC</option>
+  <option value="20008">Crowley Government Services Inc.</option>
+  <option value="20009">East Coast Medical</option>
+  <option value="20010">Asset Group, Inc.</option>
+  <option value="20011">RCG of North Carolina, LLC</option>
+  <option value="20012">General Services Administration (GSA)</option>
+  <option value="20013">Scotbilt Homes, Inc.</option>
+  <option value="20014">Aptim Federal Services, LLC</option>
+  <option value="20015">CH2M Facility Support Services, LLC</option>
+  <option value="20016">Disaster Solutions Alliance, LLC</option>
+  <option value="20017">MLU Services, Inc.</option>
+  <option value="20018">Timberline Construction Group, LLC</option>
+  <option value="20019">Windstorm Mitigation, Inc.</option>
+  <option value="20020">Transportation Management Services (TMS)</option>
+  <option value="20021">American Medical Response, Inc. (AMR)</option>
+    </select><br><br>
+
+        <label for="vehicle" style="margin-left: 25px;">Vehicle:</label>
+            <select name="vehicle">
+              <option value="101">Pickup Trucks</option>
+              <option value="102">Box Trucks</option>
+              <option value="103">Flatbed Trucks</option>
+              <option value="104">Dump Trucks</option>
+              <option value="105">Tanker Trucks</option>
+              <option value="106">Refrigerated Trucks</option>
+            </select>
+        <br><br>
+
+        <label for="c_id" style="margin-left: 25px;">Supply Type:</label>
+        <select id="c_id" name="c_id">
+          <option value="">Select Supply Type</option>
+          <option value="1001">Bottled Water</option>
+          <option value="1002">Self-heating Meals</option>
+          <option value="1003">Commercial Cots</option>
+          <option value="1004">Consumable Medical Supply Shelter Support Items</option>
+          <option value="1005">Durable Medical Equipment (DME)</option>
+          <option value="1006">Generators</option>
+          <option value="1007">Infant &amp; Toddler Items and Kits</option>
+          <option value="1008">Manufactured Housing Units</option>
+          <option value="1009">Log House Program</option>
+          <option value="1010">Self-Help Tarps</option>
+          <option value="1011">Mail Equipment</option>
+        </select><br><br>
+
+      <label for="amount" style="margin-left: 25px;">Update Amount:</label>
+      <input type="text" id="amount" name="amount" pattern="[0-9]+"><br><br>
+
+      <button type="submit" class="btn btn-primary" style="margin-left: 25px;"> Update</button><br><br>
+    </form>
+    {% if res_shipments %}
+        <h2 style="margin-left: 15px;">Shipment Updated</h2>
+        <table style="text-align: center;">
+            <thead>
+              <tr>
+                <th>&nbsp; (Internal) Shipment ID&nbsp; </th>
+                <th>&nbsp; Vendor ID&nbsp; </th>
+                <th>&nbsp; State FIPS&nbsp; </th>
+                <th>&nbsp; County FIPS&nbsp; </th>
+                <th>&nbsp; Shipment Status&nbsp; </th>
+                <th>&nbsp; Vehicle Type ID&nbsp; </th>
+                <th>&nbsp; Current Longitude&nbsp; </th>
+                <th>&nbsp; Current Latitude&nbsp; </th>
+                <th>&nbsp; Content ID&nbsp; </th>
+                <th>&nbsp; Content Quantity&nbsp; </th>
+                <th>&nbsp; Expiration Date&nbsp; </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in res_shipments %}
+              <tr>
+                <td>{{ row.0 }}</td>
+                <td>{{ row.1 }}</td>
+                <td>{{ row.2 }}</td>
+                <td>{{ row.3 }}</td>
+                <td>{{ row.4 }}</td>
+                <td>{{ row.5 }}</td>
+                <td>{{ row.6 }}</td>
+                <td>{{ row.7 }}</td>
+                <td>{{ row.8 }}</td>
+                <td>{{ row.9 }}</td>
+                <td>{{ row.10 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+            <p style="text-align: center;">Can not find the shipment info.</p>
+            <style>
+                table {
+                    display: none;
+                    }
+            </style>
+        {% endif %}
+    </div>
+    </div>
+    </div>
+    <script>
+      // Add JavaScript code here
+    </script>
+  </body>
+</html>
+

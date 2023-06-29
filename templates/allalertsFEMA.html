@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Alerts</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <style>
+      h1, button, p {
+        margin-left: 25px;
+      }
+    </style>
+  </head>
+  <body style="background-color:#92ccef">
+    <header class="d-flex justify-content-center py-3" style="background-color:#5bbdfa">
+      <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item"><a href="/disaster/" class="nav-link">Disaster</a></li>
+        <li class="nav-item"><a href="/orders/" class="nav-link">Orders</a></li>
+        <li class="nav-item"><a href="/shipments/" class="nav-link">Shipments</a></li>
+      </ul>
+    </header>
+    <main class="container">
+      <h1>State Wide Disasters:</h1>
+      <form action="/disaster/" method="get">
+        <button type="submit" class="btn btn-primary">Back</button>
+          <button onclick="window.print()" class="btn btn-primary">Print</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>(FEMA) Disaster ID</th>
+            <th>State</th>
+            <th>Declaration Type</th>
+            <th>Disaster Name</th>
+            <th>Disaster Detail</th>
+            <th>Disaster Date</th>
+            <th>State Code</th>
+            <th>County Code</th>
+            <th>County Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for disaster in top_disasters %}
+          <tr>
+            <td>{{ disaster.0 }}</td>
+            <td>{{ disaster.1 }}</td>
+            <td>{{ disaster.2 }}</td>
+            <td>{{ disaster.3 }}</td>
+            <td>{{ disaster.4 }}</td>
+            <td>{{ disaster.5 }}</td>
+            <td>{{ disaster.6 }}</td>
+            <td>{{ disaster.7 }}</td>
+            <td>{{ disaster.8 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+    <script>
+      // Add JavaScript code here
+    </script>
+  </body>
+</html>
